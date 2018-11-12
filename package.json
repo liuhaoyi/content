@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build",
+    "lint": "eslint --ext .js src test",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "antd-mobile": "^2.2.6",
+    "antd-mobile-rn": "^2.3.1",
+    "babel-plugin-import": "^1.11.0",
+    "debounce": "1.0.0",
+    "dva": "^2.2.2",
+    "jquery": "^3.3.1",
+    "mockjs": "^1.0.1-beta3",
+    "react-native": "^0.55.4",
+    "react-sticky": "^6.0.3",
+    "react-textarea-autosize": "^6.1.0",
+    "strophe.js": "^1.2.14",
+    "strophejs-plugin-roster": "^1.1.0",
+    "umi": "^1.0.0-0",
+    "umi-plugin-dva": "^0.1.5",
+    "weixin-js-sdk": "^1.4.0-test"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-umi": "^0.1.1",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "husky": "^0.12.0"
+  }
+}
