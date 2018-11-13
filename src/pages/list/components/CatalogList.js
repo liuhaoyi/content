@@ -27,12 +27,12 @@ class CatalogList extends React.Component {
     );
   }
   handlerTabClick =(data,number)=>{
-      console.log("handlerTabClick=" + data.id);
-      this.setState(
-        {
-          activeTab: data.id,
-        }
-      )
+    console.log("handlerTabClick=" + data.id);
+    this.setState(
+      {
+        activeTab: data.id,
+      }
+    )
   }
   refreshListView = (_smallCatalog)=>{
     console.log("this.state.activeTab=" + this.state.activeTab);

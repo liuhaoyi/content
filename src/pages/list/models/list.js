@@ -108,20 +108,21 @@ export default {
         *fetchSmallCatalog({payload},{ call, put, select }){
             let { bigCatalog, bigCatalogName} = payload;
             const { data } = yield call(svc.fetchSmallCatalog, bigCatalog);
-            yield put({
+            if(!(typeof(data)=="undefined")  && data.state=="1"){
+                yield put({
                         type: 'loadSmallCatalog',
                         payload: {
                             bigCatalog: bigCatalog,
                             bigCatalogName: bigCatalogName,
-                            smallCatalogList: data,
+                            smallCatalogList: data.data,
                         },
                     });
+                }
         },
 
         *fetchBeforeNewsList({ payload }, { call, put, select }){
             let { smallCatalog,time } = payload;
             console.log("---time--" + time);
-            const { data } = yield call(svc.fetchBeforeNewsList, smallCatalog,time);
             const _catalog2newsList = yield select( state => state.list.catalog2NewsList);
             console.log("-----1" + "---smallCatalog=" + smallCatalog);
 
@@ -130,19 +131,72 @@ export default {
                 if(time!=""){
                     console.log("顶部刷新加载当前time前的新数据；");
                     //顶部刷新加载当前time前的新数据；
-                    const { data } = yield call(svc.fetchBeforeNewsList, smallCatalog);
+                    const { data } = yield call(svc.fetchBeforeNewsList, smallCatalog,time);
                     //返回数据为undefined，不做任何处理；
-                    if(typeof(data)==="undefined") return ;
-                    //将数据增加到，当前catalog2NewsList对应catalog的数据列表的顶部；
-                    const _newslist = _catalog2newsList.get(smallCatalog);
-                    _newslist.unshift(...data);
+                    if(!(typeof(data)=="undefined")  && data.state=="1"){
+                        //将数据增加到，当前catalog2NewsList对应catalog的数据列表的顶部；
+                        const _newslist = _catalog2newsList.get(smallCatalog);
+                        _newslist.unshift(...(data.data));
+                        yield put({
+                            type: 'loadBeforeNewsList',
+                            payload: {
+                                smallCatalog: smallCatalog,
+                                newsList: _newslist,
+                            },
+                        });
+                    }
+                }else{
+                    //理论应该不会执行，需要认证核实。
+                    yield put({
+                        type: 'targetSelected',
+                        payload: {
+                            smallCatalog: smallCatalog
+                        },
+                    });
+                }
+            }else{
+                //第一次加载数据，time="".
+                const _time = "";
+                console.log("-----3" + "---smallCatalog=" + smallCatalog);
+                const { data } = yield call(svc.fetchBeforeNewsList, smallCatalog,_time);
+                if(!(typeof(data)=="undefined")  && data.state=="1"){
                     yield put({
                         type: 'loadBeforeNewsList',
                         payload: {
                             smallCatalog: smallCatalog,
-                            newsList: _newslist,
+                            newsList: data.data,
                         },
                     });
+                }
+            }
+        } ,
+        *fetchAfterNewsList({ payload }, { call, put,select}){
+            let { smallCatalog,time } = payload;
+            console.log("---time--" + time);
+            // const { data } = yield call(svc.fetchAfterNewsList, smallCatalog,time);
+            const _catalog2newsList = yield select( state => state.list.catalog2NewsList);
+            console.log("-----1" + "---smallCatalog=" + smallCatalog);
+            if (typeof(_catalog2newsList) != "undefined"  &&  _catalog2newsList.has(smallCatalog)){
+                console.log("-----2" + "---smallCatalog=" + smallCatalog);
+                if(time!=""){
+                    console.log("底部加载当前time前的新数据；");
+                    //底部刷新加载当前time前的新数据；
+                    const { data } = yield call(svc.fetchAfterNewsList, smallCatalog);
+                    if(!(typeof(data)=="undefined")  && data.state=="1"){
+                        if(data.data.length>0){
+                            //将数据增加到，当前catalog2NewsList对应catalog的数据列表的顶部；
+                            const _newslist = _catalog2newsList.get(smallCatalog);
+                            //加载数组到尾部；
+                            _newslist.push(...(data.data));
+                            yield put({
+                                type: 'loadAfterNewsList',
+                                payload: {
+                                    smallCatalog: smallCatalog,
+                                    newsList: _newslist,
+                                },
+                            });
+                        }
+                    }
                 }else{
                     //理论应该不会执行，需要认证核实。
                     yield put({
@@ -155,65 +209,18 @@ export default {
             }else{
                 //第一次加载数据，time="".
                 console.log("-----3" + "---smallCatalog=" + smallCatalog);
-                const { data } = yield call(svc.fetchBeforeNewsList, smallCatalog);
-                if(typeof(data)==="undefined") return ;
-                yield put({
-                    type: 'loadBeforeNewsList',
-                    payload: {
-                        smallCatalog: smallCatalog,
-                        newsList: data,
-                    },
-                });
-            }
-        } ,
-        *fetchAfterNewsList({ payload }, { call, put,select}){
-            let { smallCatalog,time } = payload;
-            console.log("---time--" + time);
-            // const { data } = yield call(svc.fetchAfterNewsList, smallCatalog,time);
-            const _catalog2newsList = yield select( state => state.list.catalog2NewsList);
-            console.log("-----1" + "---smallCatalog=" + smallCatalog);
-            if (typeof(_catalog2newsList) != "undefined"  &&  _catalog2newsList.has(smallCatalog)){
-                console.log("-----2" + "---smallCatalog=" + smallCatalog);
-                    if(time!=""){
-                        console.log("底部加载当前time前的新数据；");
-                        //底部刷新加载当前time前的新数据；
-                        const { data } = yield call(svc.fetchAfterNewsList, smallCatalog);
-
-                        if(typeof(data)==="undefined") return ;
-                        //将数据增加到，当前catalog2NewsList对应catalog的数据列表的顶部；
-                        const _newslist = _catalog2newsList.get(smallCatalog);
-                        //加载数组到尾部；
-                        _newslist.push(...data);
+                const { data } = yield call(svc.fetchAfterNewsList, smallCatalog);
+                if(!(typeof(data)=="undefined")  && data.state=="1"){
+                    if(data.data.length>0){
                         yield put({
                             type: 'loadAfterNewsList',
                             payload: {
                                 smallCatalog: smallCatalog,
-                                newsList: _newslist,
-                            },
-                        });
-                    }else{
-                        //理论应该不会执行，需要认证核实。
-                        yield put({
-                            type: 'targetSelected',
-                            payload: {
-                                smallCatalog: smallCatalog
+                                newsList: data.data,
                             },
                         });
                     }
-                
-            }else{
-                //第一次加载数据，time="".
-                console.log("-----3" + "---smallCatalog=" + smallCatalog);
-                const { data } = yield call(svc.fetchAfterNewsList, smallCatalog);
-
-                if(typeof(data)==="undefined") return ;
-                yield put({
-                    type: 'loadAfterNewsList',
-                    payload: {
-                        smallCatalog: smallCatalog,
-                        newsList: data,
-                    },
-                });
+                }
             }
         } ,
     },

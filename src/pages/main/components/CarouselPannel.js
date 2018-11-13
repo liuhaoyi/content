@@ -16,6 +16,7 @@ class CarouselPannel extends React.Component {
     //   }, 100);
     }
     render() {
+      if(!this.props.data) return;
       return (
         <WingBlank>
           <Carousel

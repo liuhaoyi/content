@@ -15,13 +15,13 @@ class NewsList extends React.Component {
   componentDidMount() {
     this.props.dispatch(
       {
-          type:"list/fetchBeforeNewsList",
-          payload:{
-            "smallCatalog":this.props.data,
-            "time": "",
-          }
-        }
-      );
+        type:"list/fetchBeforeNewsList",
+        payload:{
+          "smallCatalog":this.props.data,
+          "time": "",
+         }
+      }
+    );
   }
 
   onRowClick=(obj) =>{
@@ -93,12 +93,13 @@ class NewsList extends React.Component {
         index = data.length - 1;
       }
       const obj = data[index--];
+      if(typeof(obj)=="undefined") return null;
       return (
         <div key={rowID} style={{ padding: '0 15px' }} onClick={()=>{this.onRowClick(rowData)}}>
           <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
             <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.title}</div>
               <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowID}</span>¥</div>
             </div>
           </div>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { NavBar, Icon, ActionSheet} from 'antd-mobile';
+import { NavBar, Icon, ActionSheet ,Toast} from 'antd-mobile';
 import { connect } from 'dva'
-import wx from 'weixin-js-sdk'
-
+import sharesdk  from "../../layouts/ShareSDK"
 import styles from './index.less'
 // function Layout({ children, location }) {
 // 	return (
@@ -34,6 +33,8 @@ class ContentDetailPannel extends React.Component{
       hidden: false,
       fullScreen: false,
     };
+    console.log("global.$sharesdk" + global.$sharesdk);
+
   }
   dataList = [
     { url: 'OpHiXAcYzmPQHcdlLFrc', title: '发送给朋友' },
@@ -122,13 +123,52 @@ class ContentDetailPannel extends React.Component{
     });
   }
   showShareActionSheetMulpitleLine = () => {
-    const data = [[...this.dataList, this.dataList[2]], [this.dataList[3], this.dataList[4]]];
-    ActionSheet.showShareActionSheetWithOptions({
-      options: data,
-      // message: 'I am description, description, description',
-    },
-    (buttonIndex, rowIndex) => {
-      this.setState({ clicked2: buttonIndex > -1 ? data[rowIndex][buttonIndex].title : 'cancel' });
+    // const data = [[...this.dataList, this.dataList[2]], [this.dataList[3], this.dataList[4]]];
+    // ActionSheet.showShareActionSheetWithOptions({
+    //   options: data,
+    //   // message: 'I am description, description, description',
+    // },
+    // (buttonIndex, rowIndex) => {
+    //   this.setState({ clicked2: buttonIndex > -1 ? data[rowIndex][buttonIndex].title : 'cancel' });
+    // });
+      // let sinaConf = 
+      //         {
+      //         "Id" : "1",
+      //         "SortId" : "1",
+      //         "AppKey" : "568898243",
+      //         "AppSecret" : "38a4f8204cc784f81f9f0daaf31e02e3",
+      //         "RedirectUrl" : "http://www.sharesdk.cn",
+      //         "ShareByAppClient" : "true",
+      //         "Enable" : "true"
+      //         };
+      //       //platformConfig平台配置信息可为null，此时用ShareSDK.xml
+      // let platformConfig = {}; 
+      // platformConfig[global.$sharesdk.PlatformID.SinaWeibo] = sinaConf;
+      // global.$sharesdk.initSDKAndSetPlatfromConfig("androidv1101", platformConfig);
+
+    // var params = {
+    //   "text" : this.props.detail.title,
+    //   "imageUrl" : "",
+    //   "title" : this.props.detail.title,
+    //   "titleUrl" : "http://sharesdk.cn",
+    //   "description" : "",
+    //   "site" : "mysit",
+    //   "siteUrl" : "http://sharesdk.cn",
+    //   "type" : global.$sharesdk.ContentType.Text
+    // };
+    var params = {
+      "text" : "测试的文字",
+      "imageUrl" : "http://img0.bdstatic.com/img/image/shouye/tangwei.jpg",
+      "title" : "测试的标题",
+      "titleUrl" : "http://sharesdk.cn",
+      "description" : "测试的描述",
+      "site" : "ShareSDK",
+      "siteUrl" : "http://sharesdk.cn",
+      "type" : global.$sharesdk.ContentType.Text
+    };
+    global.$sharesdk.showShareMenu(null, params, 100, 100, function (reqId, platform, state, shareInfo, error) {
+      alert("state = " + state + "\n shareInfo = " + shareInfo + "\n error = " + error);
+      // console.log("---");
     });
   }
   //评论
