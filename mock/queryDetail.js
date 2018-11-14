@@ -14,6 +14,7 @@ let db = Mock.mock(
     }
 )
 
+
 module.exports={
     [`GET /api/queryDetail`](req,res){
 
