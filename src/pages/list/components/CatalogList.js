@@ -22,7 +22,7 @@ class CatalogList extends React.Component {
   renderTabBar=(props)=> {
     return (
       <Sticky>
-          {({ style }) => <div style={{ ...style, zIndex: 1 ,position:"fixed",top:"45px"}}><Tabs.DefaultTabBar {...props} /></div>}
+          {({ style }) => <div style={{ ...style, zIndex: 1 ,position:"fixed",top:"45px",width:"100%"}}><Tabs.DefaultTabBar {...props} /></div>}
       </Sticky>
     );
   }

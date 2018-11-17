@@ -159,10 +159,10 @@ class ContentDetailPannel extends React.Component{
     //   "type" : global.$sharesdk.ContentType.Text
     // };
     var params = {
-      "text" : this.props.detail.title,
+      "text" : "测试的文字",
       "imageUrl" : "http://img0.bdstatic.com/img/image/shouye/tangwei.jpg",
-      "title" : this.props.detail.title,
-      "titleUrl" : "http://localhost:8001/detail/content?id=" + this.props.detail.id,
+      "title" : "测试的标题",
+      "titleUrl" : "http://sharesdk.cn",
       "description" : "测试的描述",
       "site" : "ShareSDK",
       "siteUrl" : "http://sharesdk.cn",
@@ -179,19 +179,9 @@ class ContentDetailPannel extends React.Component{
   }
   render(){
     if(!this.props.detail) return null;
-    const url = "/detail/content?id=" + this.props.detail.id;
     return (
-      <div style={{marginTop:"45px"}}>   
-        <NavBar leftContent={[
-          <Icon key="1" type="left" onClick={()=>this.props.history.goBack()} />,]}
-                  mode="light"
-                  rightContent={[
-          <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
-        ]}
-          >详细内容</NavBar>
-      <div style={{position:"absolute",width:"100%",top:"50px",bottom:"0",marginBottom:"0px" ,overflow:"auto","-webkit-overflow-scrolling": "touch",
-     "overflow-y": "scroll"}}>
-            {/* <hr/>
+        <div>
+            <hr/>
             <div style={{textAlign:"center"}}>标题：{this.props.detail.title}</div>
             <hr/>
             <div style={{textAlign:"center"}}>时间:{this.props.detail.date}</div>
@@ -200,35 +190,8 @@ class ContentDetailPannel extends React.Component{
             <hr/>
             <div>编辑:{this.props.detail.editor}</div>
             <hr/>
-            <div>阅读:{this.props.detail.readCount}</div> */}
-           {/* <iframe src="http://www.baidu.com"/> */}
-           <iframe 
-                // onLoad={() => {
-                //     const obj = ReactDOM.findDOMNode(this);
-                //     this.setState({
-                //         "iFrameHeight":  obj.contentWindow.document.body.scrollHeight + 'px'
-                //     });
-                // }} 
-                // style={{width:"100%",bottom:0,marginBottom:"45px"}}
-                style={{ overflow:"scroll"}}
-                ref="iframe" 
-                src={url} 
-                width="100%" 
-                height="350px"
-                scrolling="yes" 
-                frameBorder="0"
-            />
+            <div>阅读:{this.props.detail.readCount}</div>
         </div>
-
-        {/* <div className={styles.nav}> */}
-        <div style ={{display:"flex",backgroundColor:"#ffccee",height:"42px",width: "100%",position: "fixed",bottom:"0",valign:"center","justify-content":"space-around","align-items":"center"}}> 
-          <div onClick={()=>{this.handlerRefresh()}}>刷新</div>
-          <div  onClick={()=>{this.showReadModeActionSheet()}}>模式</div>
-          <div  onClick={()=>{this.showFontSizeActionSheet()}}>字体</div>
-          <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>分享</div>
-          <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>评论</div>
-        </div>
-      </div>
     );
   }
 }

@@ -36,6 +36,14 @@ class GridPannel extends React.Component{
             });
         }else if (item.catalog==='1'){
             //跳转到单页页面；
+            router.push({
+                pathname: 'list/singleList',
+                query:{
+                    bigCatalogId:item.id,
+                    bigCatalogName:item.title,
+                }
+            });
+
         }else if(item.catalog==='2'){
 
         }

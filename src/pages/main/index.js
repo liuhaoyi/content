@@ -19,13 +19,26 @@ class MainPage extends React.Component{
         }
       }
     );
+    //-------
     this.props.dispatch(
       {
         type:"main/fetchMainPicList",
         payload:{
+          "smallCatalog": "shouyedongtu",
+          "currentPage": "1",
+          "pageSize": "8",
         }
       }
     );
+    // this.props.dispatch(
+    //   {
+    //     type:"list/fetchBeforeNewsList",
+    //     payload:{
+    //       "smallCatalog":this.props.data,
+    //       "time": "",
+    //      }
+    //   }
+    // );
   }
   // state = {
   //   docked: true,

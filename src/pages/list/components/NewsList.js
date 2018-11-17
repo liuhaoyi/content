@@ -87,20 +87,20 @@ class NewsList extends React.Component {
     });
     dataSource = dataSource.cloneWithRows(this.props.catalog2NewsList.get(this.props.data));
 
-    let index = data.length - 1;
+    // let index = data.length - 1;
     const row = (rowData, sectionID, rowID,highlightRow) => {
-      if (index < 0) {
-        index = data.length - 1;
-      }
-      const obj = data[index--];
-      if(typeof(obj)=="undefined") return null;
+      // if (index < 0) {
+      //   index = data.length - 1;
+      // }
+      // const obj = data[index--];
+      // if(typeof(obj)=="undefined") return null;
       return (
         <div key={rowID} style={{ padding: '0 15px' }} onClick={()=>{this.onRowClick(rowData)}}>
           <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
-            <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+            <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={rowData.img} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.title}</div>
-              <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowID}</span>¥</div>
+              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{rowData.title}</div>
+              <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div>
             </div>
           </div>
         </div>

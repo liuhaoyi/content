@@ -25,7 +25,7 @@ export default {
             yield put({
                         type: 'loadDetail',
                         payload: {
-                            detail: data,
+                            detail: data.data,
                         },
                     });
         },

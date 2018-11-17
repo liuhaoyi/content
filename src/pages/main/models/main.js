@@ -30,24 +30,33 @@ export default {
             const { data } = yield call(svc.fetchBigCatalog);
             if(!(typeof(data)=="undefined") && data.state=="1"){
                 yield put({
-                            type: 'loadBigCatalog',
-                            payload: {
-                                bigCatalogList: data.data,
-                            },
-                        });
+                    type: 'loadBigCatalog',
+                    payload: {
+                        bigCatalogList: data.data,
+                    },
+                });
             }
         },
         //查询图片列表
         *fetchMainPicList({payload},{call,put,select}){
-            const { data } = yield call(svc.fetchMainPicList);
-            if(!(typeof(data)=="undefined")  && data.state=="1"){
-                yield put({
-                            type: 'loadMainPicList',
-                            payload: {
-                                mainPicList: data.data,
-                            },
-                        });
-            }
+            // const { data } = yield call(svc.fetchMainPicList);
+            // if(!(typeof(data)=="undefined")  && data.state=="1"){
+            //     yield put({
+            //                 type: 'loadMainPicList',
+            //                 payload: {
+            //                     mainPicList: data.data,
+            //                 },
+            //             });
+            // }
+            let { smallCatalog, currentPage,pageSize} = payload;
+            currentPage = currentPage - 1;
+            const { data } = yield call(svc.fetchMainPicList,smallCatalog,currentPage,pageSize);
+            yield put({
+                type: 'loadMainPicList',
+                payload: {
+                    mainPicList: data.data.list,
+                },
+            });
         },
     },
 

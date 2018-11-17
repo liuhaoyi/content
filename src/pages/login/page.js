@@ -5,7 +5,7 @@ import { createForm } from 'rc-form';
 import {connect} from 'dva';
 
 @connect(({ login}) => ({
-    
+  
   }))
 class BasicInputExample extends React.Component {
     componentDidMount() {

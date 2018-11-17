@@ -28,7 +28,7 @@ class CarouselPannel extends React.Component {
             {this.props.data.map(val => (
               <a
                 key={val.id}
-                href="/detail?id={val.id}"
+                href={"/detail?id=" + val.id}
                 style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
               >
                 <img
