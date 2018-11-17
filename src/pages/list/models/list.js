@@ -147,12 +147,25 @@ export default {
                     }
                 }else{
                     //理论应该不会执行，需要认证核实。
-                    yield put({
-                        type: 'targetSelected',
-                        payload: {
-                            smallCatalog: smallCatalog
-                        },
-                    });
+                    // yield put({
+                    //     type: 'targetSelected',
+                    //     payload: {
+                    //         smallCatalog: smallCatalog
+                    //     },
+                    // });
+                     //第一次加载数据，time="".
+                    const _time = "";
+                    console.log("-----3" + "---smallCatalog=" + smallCatalog);
+                    const { data } = yield call(svc.fetchBeforeNewsList, smallCatalog,_time);
+                    if(!(typeof(data)=="undefined")  && data.state=="1"){
+                        yield put({
+                            type: 'loadBeforeNewsList',
+                            payload: {
+                                smallCatalog: smallCatalog,
+                                newsList: data.data,
+                            },
+                        });
+                    }
                 }
             }else{
                 //第一次加载数据，time="".
