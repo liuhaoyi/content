@@ -1,9 +1,9 @@
 import request from '../../../utils/request';
 
 //登录{phone,userId,password}
-export function auth(values){
-  return request('/api/login', {
-    method: 'POST',
-    body: JSON.stringify(values),
-  });
+export function login(values){
+  
+  const {loginName, phone, userNo} = values;
+  return request(`/api/login?loginName=${loginName}&phone=${phone.replace(/\s+/g,"")}&userNo=${userNo}`);
+
 }

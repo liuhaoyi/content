@@ -64,6 +64,9 @@ export default {
         //         ]
         //     },
         // ]
+
+        //查询列表；
+        searchResultList: [],
     },
 
     reducers: {
@@ -99,7 +102,9 @@ export default {
         targetSelected(state, { payload }){
             return { ...state, ...{ smallCatalog: payload.smallCatalog}}
         },
-       
+        loadSearch(state,{payload}){
+            return { ...state,...payload };
+        },
     },
 
     effects:{
@@ -236,6 +241,18 @@ export default {
                 }
             }
         } ,
+        *fetchSearch({payload},{ call, put, select }){
+            let { title } = payload;
+            const { data } = yield call(svc.fetchSearch, title);
+            if(!(typeof(data)=="undefined")  && data.state=="1"){
+                yield put({
+                    type: 'loadSearch',
+                    payload: {
+                        searchResultList: data.data,
+                    },
+                });
+            }
+        },
     },
 
     subscriptions: {

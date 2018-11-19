@@ -5,7 +5,7 @@ import { connect } from 'dva';
 class CarouselPannel extends React.Component {
     state = {
     //   data: ['1', '2', '3'],
-      imgHeight: 120,
+      imgHeight: '180px',
     }
     componentDidMount() {
       // simulate img loading
@@ -29,12 +29,12 @@ class CarouselPannel extends React.Component {
               <a
                 key={val.id}
                 href={"/detail?id=" + val.id}
-                style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                style={{ display: 'inline-block', width: '100%', height: "180px" }}
               >
                 <img
                   src={val.img}
                   alt=""
-                  style={{ width: '100%', height:'200px',verticalAlign: 'top' }}
+                  style={{ width: '100%', height:'180px',verticalAlign: 'top' }}
                   onLoad={() => {
                     // fire window resize event to change height
                     window.dispatchEvent(new Event('resize'));

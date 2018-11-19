@@ -14,3 +14,8 @@ export function fetchBeforeNewsList(catalog,time) {
 export function fetchAfterNewsList(catalog,time) {
     return request(`/api/queryAfterNewsList?smallCatalog=${catalog}&time=${time}`);
 }
+
+//查询挑剔；
+export function fetchSearch(title){
+    return request(`/api/search?title=${title}`);
+}

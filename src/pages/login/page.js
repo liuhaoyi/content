@@ -15,20 +15,24 @@ class BasicInputExample extends React.Component {
     //   this.inputRef.focus();
     }
     onLoginClick=()=>{
-        // console.log("onLoginClick");
-        let phone   =  "";
-        let userId  =   "";
-        let password=   "";
-
-        const { dispatch } = this.props;
-        dispatch({
-          type: 'login/login',
-          payload: {
-          },
+        const { dispatch, form }  = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          form.resetFields();
+          dispatch({
+              type: 'login/login',
+              payload: {
+                ...fieldsValue,
+              },
+            });
         });
     }
     onResetClick=()=>{
-        console.log("onResetClick")
+      const { form }  = this.props;
+      form.validateFields((err, fieldsValue) => {
+        if (err) return;
+        form.resetFields();
+      });
     }
     render() {
         
@@ -39,23 +43,23 @@ class BasicInputExample extends React.Component {
             <WhiteSpace />
             <List renderHeader={() => '认证'}>
                 <InputItem
+                 {...getFieldProps('loginName')}
                     defaultValue=""
                     placeholder="输入用户名"
-                    data-seed="logId"
+                    data-seed="loginName"
                 >姓名</InputItem>
             
                 <InputItem
                 {...getFieldProps('phone')}
                 type="phone"
-                placeholder="186 1234 1234"
-                >手机</InputItem>
+                placeholder="输入手机号"
+                >手机号</InputItem>
 
                 <InputItem
-                {...getFieldProps('password')}
+                {...getFieldProps('userNo')}
                 type="password"
-                placeholder="****"
-                >密码</InputItem>
-
+                placeholder="输入员工编号"
+                >工号编号</InputItem>
             </List>
             <WhiteSpace />
             <Button type="primary" onClick={()=>this.onLoginClick()}>登录</Button><WhiteSpace />
