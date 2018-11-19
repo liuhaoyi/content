@@ -18,7 +18,7 @@ class BasicInputExample extends React.Component {
         const { dispatch, form }  = this.props;
         form.validateFields((err, fieldsValue) => {
           if (err) return;
-          form.resetFields();
+          // form.resetFields();
           dispatch({
               type: 'login/login',
               payload: {

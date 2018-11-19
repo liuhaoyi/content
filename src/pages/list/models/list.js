@@ -199,7 +199,7 @@ export default {
                 if(time!=""){
                     console.log("底部加载当前time前的新数据；");
                     //底部刷新加载当前time前的新数据；
-                    const { data } = yield call(svc.fetchAfterNewsList, smallCatalog);
+                    const { data } = yield call(svc.fetchAfterNewsList, smallCatalog,time);
                     if(!(typeof(data)=="undefined")  && data.state=="1"){
                         if(data.data.length>0){
                             //将数据增加到，当前catalog2NewsList对应catalog的数据列表的顶部；
