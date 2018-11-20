@@ -1,15 +1,26 @@
 import React from 'react';
 import withRouter from 'umi/withRouter';
-import {List,InputItem,WhiteSpace,Button} from 'antd-mobile';
+import { List, InputItem, WhiteSpace, Button, ActivityIndicator, Toast} from 'antd-mobile';
 import { createForm } from 'rc-form';
-import {connect} from 'dva';
+import { connect } from 'dva';
 
-@connect(({ login}) => ({
-  
+@connect(({ login, loading }) => ({
+    loginState: login.loginState,
+    loading: loading.effects['login/login']
+
   }))
 class BasicInputExample extends React.Component {
+  state = {
+    //   data: ['1', '2', '3'],
+      loginState: null,
+    }
     componentDidMount() {
       // this.autoFocusInst.focus();
+    }
+    componentDidUpdate(){
+      if(this.props.loginState!=null){
+        Toast.info(this.props.loginState, 1);
+      }
     }
     handleClick = () => {
     //   this.inputRef.focus();
@@ -65,6 +76,11 @@ class BasicInputExample extends React.Component {
             <Button type="primary" onClick={()=>this.onLoginClick()}>登录</Button><WhiteSpace />
             <Button onClick={this.onResetClick}>重置</Button><WhiteSpace />
             </div>
+            {/* <ActivityIndicator
+                toast
+                text="Loading..."
+                animating={ this.props.loading ?true:false}
+              /> */}
         </div>
       );
     }

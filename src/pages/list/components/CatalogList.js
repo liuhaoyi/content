@@ -62,6 +62,7 @@ class CatalogList extends React.Component {
             initalPage={4}
             renderTabBar={this.renderTabBar}
             onChange = {(data,number)=>this.handlerTabClick(data,number)}
+            swipeable = {false}
           >
             {
               this.props.data.map(item=>{

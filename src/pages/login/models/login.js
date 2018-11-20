@@ -1,21 +1,17 @@
 import { login } from '../services/login';
 import router from 'umi/router';
-// import { Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 export default {
     namespace: 'login',
      
     state: {
-        phone: null,
-        userId: null,
-        password: null,
+        loginState: null,
     },
 
     reducers: {
-
-        // login(state,{payload}){
-        //     return { ...state,...payload };
-        // },
-       
+        loadLogin(state,{payload}){
+            return { ...state,...payload };
+        },
     },
 
     effects:{
@@ -31,10 +27,22 @@ export default {
                         }
                         });
                 }else{
-                    // Toast.error("用户名或密码错误");
+                    yield put({
+                        type: 'loadLogin',
+                        payload: {
+                            loginState: "登录信息错误！",
+                        },
+                    });
+                    // Toast.info('This is a toast tips !!!', 1);
                 }
             } else{
-                // Toast.error("用户名或密码错误");
+                yield put({
+                    type: 'loadLogin',
+                    payload: {
+                        loginState: "登录信息错误！",
+                    },
+                });
+                // Toast.info('This is a toast tips !!!', 1);
             }
         },
     },

@@ -23,11 +23,11 @@ export default {
             let { id } = payload;
             const { data } = yield call(fetchDetail_, id);
             yield put({
-                        type: 'loadDetail',
-                        payload: {
-                            detail: data.data,
-                        },
-                    });
+                type: 'loadDetail',
+                payload: {
+                    detail: data.data,
+                },
+            });
         },
        
     },

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { NavBar, Icon, ActionSheet ,Toast} from 'antd-mobile';
+import { NavBar, Icon, ActionSheet ,ActivityIndicator} from 'antd-mobile';
 import { connect } from 'dva'
 import sharesdk  from "../../layouts/ShareSDK"
 import styles from './index.less'
@@ -14,6 +14,11 @@ if (isIPhone) {
     onTouchStart: e => e.preventDefault(),
   };
 }
+@connect(({ detail, loading }) => ({
+  id:detail.id,
+  detail,
+  loading: loading.effects['detail/fetchDetail']
+}))
 class ContentDetailPannel extends React.Component{
   constructor(props) {
     super(props);
@@ -136,14 +141,21 @@ class ContentDetailPannel extends React.Component{
           <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>分享</div>
           <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>评论</div>
         </div>
+        <ActivityIndicator
+                toast
+                text="Loading..."
+                animating={ this.props.loading ?true:false}
+              />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { id , detail} = state.detail;
-  return { id , detail} ;
-}
+// function mapStateToProps(state) {
+//   const { id , detail} = state.detail;
 
-export default connect(mapStateToProps)(ContentDetailPannel);
+//   return { id , detail} ;
+// }
+
+// export default connect(mapStateToProps)(ContentDetailPannel);
+export default ContentDetailPannel

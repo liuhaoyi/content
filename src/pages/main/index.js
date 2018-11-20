@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.less';
-import { NavBar, Icon, WhiteSpace, Modal} from 'antd-mobile';
+import { NavBar, Icon, WhiteSpace, Modal, Drawer, List, Toast} from 'antd-mobile';
 import GridPannel from './components/GridPannel'
 import CarouselPannel from './components/CarouselPannel'
 import router from 'umi/router';
@@ -32,7 +32,7 @@ class MainPage extends React.Component{
     );
   }
   state = {
-    open: true,
+    open: false,
   }
   onOpenChange = (...args) => {
     console.log(args);
@@ -54,22 +54,81 @@ class MainPage extends React.Component{
         }
     });
   }
+  onDrawerItemClick=(index)=>{
+    console.log("index=" + index);
+    if(index=="1"){
+      //显示收藏
+    }else if(index=="2"){
+      //软件说明
+      Toast.info("华云V1.0.1");
+    }else if(index =="3"){
+      //关闭菜单
+    }
+    this.onOpenChange();
+  }
   render(){
+    const sidebar = (<List>
+      {/* {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((i, index) => {
+        if (index === 0) {
+          return (<List.Item key={index}
+            thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+            multipleLine
+          >Category</List.Item>);
+        }
+        return (<List.Item key={index}
+          thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+        >Category{index}</List.Item>);
+      })} */}
+        <List.Item key={1}
+              thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+              multipleLine
+              onClick={()=>this.onDrawerItemClick("1")}
+            >我的收藏</List.Item>
+        <List.Item key={1}
+              thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+              multipleLine
+              onClick={()=>this.onDrawerItemClick("1")}
+
+            >我的收藏</List.Item>
+        <List.Item key={2}
+              thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+              multipleLine
+              onClick={()=>this.onDrawerItemClick("2")}
+
+            >软件说明</List.Item>
+        <List.Item key={3}
+              thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+              multipleLine
+              onClick={()=>this.onDrawerItemClick("3")}
+
+            >关闭菜单</List.Item>
+    </List>);
     return (
       <div style={{marginTop:"45px"}}>   
+
         <NavBar leftContent={[
-            <Icon key="1" type="ellipsis" onClick={()=>this.onOpenChange}/>]}
+            <Icon key="1" type="ellipsis" onClick={()=>this.onOpenChange()}/>]}
                   mode="light"
 
                   rightContent={[
             <Icon key="2" type="search" onClick={()=>this.onShowSearchWindow()} />
         ]}
         >华云合创</NavBar>
-        <WhiteSpace />
-        <CarouselPannel  data={this.props.mainPicList}/>
-        <div>
-          <GridPannel data={this.props.bigCatalogList}/>
-        </div>
+        <Drawer
+          // className="my-drawer"
+          style={{ minHeight: document.documentElement.clientHeight }}
+          enableDragHandle
+          contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42}}
+          sidebar={sidebar}
+          open={this.state.open}
+          onOpenChange={this.onOpenChange}
+        >       
+          <WhiteSpace />
+          <CarouselPannel  data={this.props.mainPicList}/>
+          <div>
+            <GridPannel data={this.props.bigCatalogList}/>
+          </div>
+        </Drawer>
       </div>
     );
   }

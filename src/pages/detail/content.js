@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { NavBar, Icon, ActionSheet ,Toast} from 'antd-mobile';
+import { ActionSheet ,ActivityIndicator} from 'antd-mobile';
 import { connect } from 'dva'
-import sharesdk  from "../../layouts/ShareSDK"
-import styles from './index.less'
+
 // function Layout({ children, location }) {
 // 	return (
 // 		<div>
@@ -26,6 +25,11 @@ if (isIPhone) {
     onTouchStart: e => e.preventDefault(),
   };
 }
+@connect(({ detail, loading }) => ({
+  id: detail.id,
+  detail: detail.detail,
+  loading: loading.effects['detail/fetchDetail']
+}))
 class ContentDetailPannel extends React.Component{
 
   constructor(props) {
@@ -182,23 +186,25 @@ class ContentDetailPannel extends React.Component{
     return (
         <div>
             <hr/>
-            <div style={{textAlign:"center"}}>标题：{this.props.detail.title}</div>
+            <div style={{textAlign:"center"}}>{this.props.detail.title}</div>
             <hr/>
-            <div style={{textAlign:"center"}}>时间:{this.props.detail.date}</div>
+            <div style={{textAlign:"center"}}>发布日期:{this.props.detail.publishDate}</div>
             <hr/>
             <div dangerouslySetInnerHTML={{__html:this.props.detail.content}}></div>
             <hr/>
             <div>编辑:{this.props.detail.editor}</div>
             <hr/>
             <div>阅读:{this.props.detail.readCount}</div>
+           
         </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { id , detail} = state.detail;
-  return { id , detail} ;
-}
+// function mapStateToProps(state) {
+//   const { id , detail} = state.detail;
+//   return { id , detail} ;
+// }
 
-export default connect(mapStateToProps)(ContentDetailPannel);
+// export default connect(mapStateToProps)(ContentDetailPannel);
+export default ContentDetailPannel
