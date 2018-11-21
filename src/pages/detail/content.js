@@ -184,17 +184,15 @@ class ContentDetailPannel extends React.Component{
   render(){
     if(!this.props.detail) return null;
     return (
-        <div>
-            <hr/>
+        <div style={{padding:"10px"}}>
             <div style={{textAlign:"center"}}>{this.props.detail.title}</div>
-            <hr/>
-            <div style={{textAlign:"center"}}>发布日期:{this.props.detail.publishDate}</div>
+            <div style={{textAlign:"center"}}>{this.props.detail.publishDate}</div>
             <hr/>
             <div dangerouslySetInnerHTML={{__html:this.props.detail.content}}></div>
             <hr/>
-            <div>编辑:{this.props.detail.editor}</div>
+            <div>编辑:&nbsp;&nbsp;{this.props.detail.editor}</div>
             <hr/>
-            <div>阅读:{this.props.detail.readCount}</div>
+            <div>阅读:&nbsp;&nbsp;{this.props.detail.readCount}</div>
            
         </div>
     );

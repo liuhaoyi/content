@@ -134,7 +134,7 @@ class ContentDetailPannel extends React.Component{
             />
         </div>
 
-        <div style ={{display:"flex",backgroundColor:"#ffccee",height:"42px",width: "100%",position: "fixed",bottom:"0",valign:"center","justify-content":"space-around","align-items":"center"}}> 
+        <div style ={{display:"flex",backgroundColor:"#f5f5f9",height:"42px",width: "100%",position: "fixed",bottom:"0",valign:"center","justify-content":"space-around","align-items":"center"}}> 
           <div onClick={()=>{this.handlerRefresh()}}>刷新</div>
           <div  onClick={()=>{this.showReadModeActionSheet()}}>模式</div>
           <div  onClick={()=>{this.showFontSizeActionSheet()}}>字体</div>
