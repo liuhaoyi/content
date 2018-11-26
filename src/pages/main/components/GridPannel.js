@@ -70,7 +70,7 @@ class GridPannel extends React.Component{
                   renderItem={dataItem => (
                     <div style={{ padding: '12.5px'}}>
                         <div>
-                            <img src={dataItem.img} style={{ width: '50px', height: '50px' }} alt="" />
+                            <img src={dataItem.img} style={{ width: '64px', height: '64px' }} alt="" />
                             <div style={{fontSize: '14px'}}>
                                 <span>{dataItem.title}</span>
                             </div>

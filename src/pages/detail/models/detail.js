@@ -28,6 +28,7 @@ export default {
                     detail: data.data,
                 },
             });
+            
         },
        
     },

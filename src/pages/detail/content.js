@@ -26,166 +26,36 @@ if (isIPhone) {
   };
 }
 @connect(({ detail, loading }) => ({
-  id: detail.id,
   detail: detail.detail,
   loading: loading.effects['detail/fetchDetail']
 }))
-class ContentDetailPannel extends React.Component{
+class ContentPannel extends React.Component{
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedTab: 'redTab',
-      hidden: false,
-      fullScreen: false,
-    };
-    console.log("global.$sharesdk" + global.$sharesdk);
-
-  }
-  dataList = [
-    { url: 'OpHiXAcYzmPQHcdlLFrc', title: '发送给朋友' },
-    { url: 'wvEzCMiDZjthhAOcwTOu', title: '新浪微博' },
-    { url: 'cTTayShKtEIdQVEMuiWt', title: '生活圈' },
-    { url: 'umnHwvEgSyQtXlZjNJTt', title: '微信好友' },
-    { url: 'SxpunpETIwdxNjcJamwB', title: 'QQ' },
-  ].map(obj => ({
-    icon: <img src={`https://gw.alipayobjects.com/zos/rmsportal/${obj.url}.png`} alt={obj.title} style={{ width: 36 }} />,
-    title: obj.title,
-  }));
   componentDidMount(){
+    let id  = "";
+    if(this.props.location){
+      id = this.props.location.query.id;
+    }else {
+      id = this.props.id;
+    }
     this.props.dispatch(
       {
         type:"detail/fetchDetail",
         payload:{
-          "id":this.props.location.query.id,
+          "id": id,
         }
       }
     );
   }
 
-  renderContent(pageText) {
-    return (
-      <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-        <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
-        <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
-          onClick={(e) => {
-            e.preventDefault();
-            this.setState({
-              hidden: !this.state.hidden,
-            });
-          }}
-        >
-          Click to show/hide tab-bar
-        </a>
-        <a style={{ display: 'block', marginBottom: 600, color: '#108ee9' }}
-          onClick={(e) => {
-            e.preventDefault();
-            this.setState({
-              fullScreen: !this.state.fullScreen,
-            });
-          }}
-        >
-          Click to switch fullscreen
-        </a>
-      </div>
-    );
-  }
-
-  handlerRefresh=()=>{
-    
-    console.log(this.props.detail.id);
-    // this.props.location.reload();
-  }
-  showReadModeActionSheet = () => {
-    const BUTTONS = ['正常模式', '夜间模式', '关闭'];
-    ActionSheet.showActionSheetWithOptions({
-      options: BUTTONS,
-      cancelButtonIndex: BUTTONS.length - 1,
-      destructiveButtonIndex: BUTTONS.length - 2,
-      title: '阅读模式',
-      // message: '阅读模式',
-      maskClosable: true,
-      'data-seed': 'logId',
-      wrapProps,
-    },
-    (buttonIndex) => {
-      this.setState({ clicked: BUTTONS[buttonIndex] });
-    });
-  }
-  showFontSizeActionSheet = () => {
-    const BUTTONS = ['较大字体', '正常字体', '较小字体', '关闭'];
-    ActionSheet.showActionSheetWithOptions({
-      options: BUTTONS,
-      cancelButtonIndex: BUTTONS.length - 1,
-      destructiveButtonIndex: BUTTONS.length - 2,
-      title: '字体大小',
-      // message: '阅读模式',
-      maskClosable: true,
-      'data-seed': 'logId',
-      wrapProps,
-    },
-    (buttonIndex) => {
-      this.setState({ clicked: BUTTONS[buttonIndex] });
-    });
-  }
-  showShareActionSheetMulpitleLine = () => {
-    // const data = [[...this.dataList, this.dataList[2]], [this.dataList[3], this.dataList[4]]];
-    // ActionSheet.showShareActionSheetWithOptions({
-    //   options: data,
-    //   // message: 'I am description, description, description',
-    // },
-    // (buttonIndex, rowIndex) => {
-    //   this.setState({ clicked2: buttonIndex > -1 ? data[rowIndex][buttonIndex].title : 'cancel' });
-    // });
-      // let sinaConf = 
-      //         {
-      //         "Id" : "1",
-      //         "SortId" : "1",
-      //         "AppKey" : "568898243",
-      //         "AppSecret" : "38a4f8204cc784f81f9f0daaf31e02e3",
-      //         "RedirectUrl" : "http://www.sharesdk.cn",
-      //         "ShareByAppClient" : "true",
-      //         "Enable" : "true"
-      //         };
-      //       //platformConfig平台配置信息可为null，此时用ShareSDK.xml
-      // let platformConfig = {}; 
-      // platformConfig[global.$sharesdk.PlatformID.SinaWeibo] = sinaConf;
-      // global.$sharesdk.initSDKAndSetPlatfromConfig("androidv1101", platformConfig);
-
-    // var params = {
-    //   "text" : this.props.detail.title,
-    //   "imageUrl" : "",
-    //   "title" : this.props.detail.title,
-    //   "titleUrl" : "http://sharesdk.cn",
-    //   "description" : "",
-    //   "site" : "mysit",
-    //   "siteUrl" : "http://sharesdk.cn",
-    //   "type" : global.$sharesdk.ContentType.Text
-    // };
-    var params = {
-      "text" : "测试的文字",
-      "imageUrl" : "http://img0.bdstatic.com/img/image/shouye/tangwei.jpg",
-      "title" : "测试的标题",
-      "titleUrl" : "http://sharesdk.cn",
-      "description" : "测试的描述",
-      "site" : "ShareSDK",
-      "siteUrl" : "http://sharesdk.cn",
-      "type" : global.$sharesdk.ContentType.Text
-    };
-    global.$sharesdk.showShareMenu(null, params, 100, 100, function (reqId, platform, state, shareInfo, error) {
-      alert("state = " + state + "\n shareInfo = " + shareInfo + "\n error = " + error);
-      // console.log("---");
-    });
-  }
-  //评论
-  showDiscuss=()=>{
-
-  }
+  
   render(){
     if(!this.props.detail) return null;
+    const fontSize = this.props.fontSize?this.props.fontSize:"medium" ;
     return (
-        <div style={{padding:"10px"}}>
-            <div style={{textAlign:"center"}}>{this.props.detail.title}</div>
+        <div style={{padding:"10px","font-size": fontSize}}>
+
+            <div style={{textAlign:"center",fontWeight:"bold",paddingTop:"20px"}}>{this.props.detail.title}</div>
             <div style={{textAlign:"center"}}>{this.props.detail.publishDate}</div>
             <hr/>
             <div dangerouslySetInnerHTML={{__html:this.props.detail.content}}></div>
@@ -193,16 +63,8 @@ class ContentDetailPannel extends React.Component{
             <div>编辑:&nbsp;&nbsp;{this.props.detail.editor}</div>
             <hr/>
             <div>阅读:&nbsp;&nbsp;{this.props.detail.readCount}</div>
-           
         </div>
     );
   }
 }
-
-// function mapStateToProps(state) {
-//   const { id , detail} = state.detail;
-//   return { id , detail} ;
-// }
-
-// export default connect(mapStateToProps)(ContentDetailPannel);
-export default ContentDetailPannel
+export default ContentPannel

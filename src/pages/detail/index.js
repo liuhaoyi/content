@@ -6,6 +6,7 @@ import { connect } from 'dva'
 import sharesdk  from "../../layouts/ShareSDK"
 import styles from './index.less'
 import router from 'umi/router';
+import ContentPannel from './content'
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let wrapProps;
@@ -26,6 +27,7 @@ class ContentDetailPannel extends React.Component{
       selectedTab: 'redTab',
       hidden: false,
       fullScreen: false,
+      fontSize: "12px",
     };
     console.log("global.$sharesdk" + global.$sharesdk);
 
@@ -45,9 +47,11 @@ class ContentDetailPannel extends React.Component{
   }
 
   handlerRefresh=()=>{
-    
-    console.log(this.props.detail.id);
+    this.forceUpdate();
+    // console.log(this.props.detail.id);
     // this.props.location.reload();
+    // this.props.location.reload();
+    // console.log("location=",JSON.stringify(this.props.location));
   }
   showReadModeActionSheet = () => {
     const BUTTONS = ['正常模式', '夜间模式', '关闭'];
@@ -79,6 +83,16 @@ class ContentDetailPannel extends React.Component{
     },
     (buttonIndex) => {
       this.setState({ clicked: BUTTONS[buttonIndex] });
+      // this.setState({ clicked: BUTTONS[buttonIndex] });
+      //大：0，正常：1，小：2
+      console.log("buttonIndex=",buttonIndex);
+      if(buttonIndex===0){
+        this.setState({ fontSize: "large" });
+      }else if(buttonIndex===1){
+        this.setState({ fontSize: "medium" });
+      }else{
+        this.setState({ fontSize: "small" });
+      }
     });
   }
   showShareActionSheetMulpitleLine = () => {
@@ -104,7 +118,6 @@ class ContentDetailPannel extends React.Component{
     this.props.history.goBack();
   }
   render(){
-    const url = "/detail/content?id=" + this.props.location.query.id;
     return (
       <div style={{marginTop:"45px"}}>   
         <NavBar leftContent={[
@@ -114,26 +127,9 @@ class ContentDetailPannel extends React.Component{
           <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
         ]}
           >详细内容</NavBar>
-      <div style={{position:"absolute",width:"100%",top:"50px",bottom:"0",marginBottom:"0px" ,overflow:"auto","-webkit-overflow-scrolling": "touch",
-     "overflow-y": "scroll"}}>
-           <iframe 
-                // onLoad={() => {
-                //     const obj = ReactDOM.findDOMNode(this);
-                //     this.setState({
-                //         "iFrameHeight":  obj.contentWindow.document.body.scrollHeight + 'px'
-                //     });
-                // }} 
-                // style={{width:"100%",bottom:0,marginBottom:"45px"}}
-                style={{ overflow:"scroll"}}
-                ref="iframe" 
-                src={url} 
-                width="100%" 
-                height="350px"
-                scrolling="yes" 
-                frameBorder="0"
-            />
+        <div style={{ height:document.body.clientHeight, overflow:"scroll" ,marginTop:"45px",paddingBottom:"100px" }}>
+          <ContentPannel id={ this.props.location.query.id } fontSize = { this.state.fontSize }/>
         </div>
-
         <div style ={{display:"flex",backgroundColor:"#f5f5f9",height:"42px",width: "100%",position: "fixed",bottom:"0",valign:"center","justify-content":"space-around","align-items":"center"}}> 
           <div onClick={()=>{this.handlerRefresh()}}>刷新</div>
           <div  onClick={()=>{this.showReadModeActionSheet()}}>模式</div>
@@ -147,15 +143,9 @@ class ContentDetailPannel extends React.Component{
                 animating={ this.props.loading ?true:false}
               />
       </div>
+
     );
   }
 }
 
-// function mapStateToProps(state) {
-//   const { id , detail} = state.detail;
-
-//   return { id , detail} ;
-// }
-
-// export default connect(mapStateToProps)(ContentDetailPannel);
 export default ContentDetailPannel
