@@ -18,7 +18,6 @@ class CarouselPannel extends React.Component {
     render() {
       if(!this.props.data) return;
       return (
-        <WingBlank>
           <Carousel
             autoplay={true}
             infinite
@@ -26,6 +25,7 @@ class CarouselPannel extends React.Component {
             afterChange={index => console.log('slide to', index)}
           >
             {this.props.data.map(val => (
+              <div style={{padding:"2px"}}>
               <a
                 key={val.id}
                 href={"/detail?id=" + val.id}
@@ -42,9 +42,9 @@ class CarouselPannel extends React.Component {
                   }}
                 />
               </a>
+              </div>
             ))}
           </Carousel>
-        </WingBlank>
       );
     }
   }

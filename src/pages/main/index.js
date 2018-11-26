@@ -114,7 +114,7 @@ class MainPage extends React.Component{
             <Icon key="2" type="search" onClick={()=>this.onShowSearchWindow()} />
         ]}
         >华云合创</NavBar>
-        <Drawer
+        {/* <Drawer
           // className="my-drawer"
           style={{ minHeight: document.documentElement.clientHeight }}
           enableDragHandle
@@ -122,13 +122,12 @@ class MainPage extends React.Component{
           sidebar={sidebar}
           open={this.state.open}
           onOpenChange={this.onOpenChange}
-        >       
-          <WhiteSpace />
-          <CarouselPannel  data={this.props.mainPicList}/>
-          <div>
+        >        */}
+          <div style={{padding:"2px"}}>
+            <CarouselPannel  data={this.props.mainPicList} />
             <GridPannel data={this.props.bigCatalogList}/>
           </div>
-        </Drawer>
+        {/* </Drawer> */}
       </div>
     );
   }

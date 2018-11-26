@@ -1,5 +1,5 @@
 import  React from 'react';
-import { ListView, PullToRefresh, Toast} from 'antd-mobile';
+import { ListView, PullToRefresh, ActivityIndicator} from 'antd-mobile';
 import { connect } from 'dva'
 import router from 'umi/router';
 
@@ -44,6 +44,7 @@ class NewsList extends React.Component {
       </div>
     );
   }
+  
   handlerFooterClick(){
     // hasMore: from backend data, indicates whether it is the last page, here is false
     // if (this.state.isLoading && !this.state.hasMore) {
@@ -97,12 +98,13 @@ class NewsList extends React.Component {
       return (
         <div key={rowID} style={{ padding: '0 15px' }} onClick={()=>{this.onRowClick(rowData)}}>
           <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
-            <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={rowData.img} alt="" />
-            <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{rowData.title}</div>
-              <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div>
+            <img style={{ width:"64px",height: "64px", marginRight: '15px',flexShrink:"0" }} src={rowData.img} alt="" />
+            {/* <div style={{ lineHeight: 1 }}> */}
+            {/* <div> */}
+              <div style={{ marginBottom: '8px', fontSize: '16px'}}>{rowData.title}</div>
+              {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div> */}
             </div>
-          </div>
+          {/* </div> */}
         </div>
       );
     };
@@ -130,6 +132,11 @@ class NewsList extends React.Component {
                 />
             }
         />
+         {/* <ActivityIndicator
+                toast
+                text="Loading..."
+                animating={ this.props.loading ?true:false}
+              /> */}
     </div>
     );
   }

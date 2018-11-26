@@ -63,28 +63,29 @@ class GridPannel extends React.Component{
     // }
     render(){
         return (
-            <div style={{ padding: '12.5px'}}>
+            // <div style={{ padding: '12.5px'}}>
                 <Grid data={this.props.data}
                   columnNum={3} 
                   onClick={(item,b)=>this.handlerClick(item,b)}
+                //   itemStyle={{  background: "#990000" ,alignItems:"center",alignContent:"center"}}
                   renderItem={dataItem => (
-                    <div style={{ padding: '12.5px'}}>
+                    // <div>
                         <div>
-                            <img src={dataItem.img} style={{ width: '64px', height: '64px' }} alt="" />
-                            <div style={{fontSize: '14px'}}>
+                            <img src={dataItem.img} style={{ width: '96px', height: '96px' }} alt="" />
+                            {/* <div style={{fontSize: '14px'}}>
                                 <span>{dataItem.title}</span>
-                            </div>
+                            </div> */}
                        </div>
-                    </div>
+                    // </div>
                   )}
                 />
-            </div>
+            // </div>
           );
     }
 }
 function mapStateToProps(state) {
     const {  bigCatalogList } = state.main;
     return { bigCatalogList } ;
-  }
-  
+}
+
 export default connect(mapStateToProps)(GridPannel);

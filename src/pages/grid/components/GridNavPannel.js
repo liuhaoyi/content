@@ -47,29 +47,23 @@ class GridNavPannel extends React.Component{
 
     render(){
         return (
-            <div style={{ padding: '12.5px'}}>
+            <div>
                 <Grid data={this.props.data}
                   columnNum={3} 
                   onClick={(item,b)=>this.props.handlerClick(item,b)}
                   renderItem={dataItem => (
-                    <div style={{ padding: '12.5px'}}>
+                    // <div style={{ padding: '12.5px'}}>
                         <div>
-                            <img src={dataItem.img} style={{ width: '64px', height: '64px' }} alt="" />
-                            <div style={{fontSize: '14px'}}>
+                            <img src={dataItem.img} style={{ width: '96px', height: '96px' }} alt="" />
+                            {/* <div style={{fontSize: '14px'}}>
                                 <span>{dataItem.title}</span>
-                            </div>
+                            </div> */}
                        </div>
-                    </div>
+                    // </div>
                   )}
                 />
             </div>
           );
     }
 }
-// function mapStateToProps(state) {
-//     const {  bigCatalogList } = state.main;
-//     return { bigCatalogList } ;
-//   }
-  
-// export default connect(mapStateToProps)(GridNavPannel);
 export default connect()(GridNavPannel)

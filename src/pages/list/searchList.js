@@ -52,9 +52,9 @@ class SearchList extends React.Component {
           <NavBar leftContent={[
           <Icon key="1" type="left" onClick={()=>this.props.history.goBack()} />,]}
                   mode="light"
-                  rightContent={[
-          <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
-        ]}
+        //           rightContent={[
+        //   <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
+        // ]}
           >搜索结果</NavBar>
           <div>
             <PureNewsList values = {this.props.searchResultList} />

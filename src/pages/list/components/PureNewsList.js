@@ -90,8 +90,8 @@ class PureNewsList extends React.Component {
           <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
             <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={rowData.img} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{rowData.title}</div>
-              <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div>
+            <div style={{ marginBottom: '8px', fontSize: '16px'}}>{rowData.title}</div>
+              {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div> */}
             </div>
           </div>
         </div>

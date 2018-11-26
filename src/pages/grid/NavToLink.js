@@ -13,9 +13,9 @@ class NavToLink extends React.Component{
                 <NavBar leftContent={[
                 <Icon key="1" type="left" onClick={()=>this.props.history.goBack()} />,]}
                         mode="light"
-                        rightContent={[
-                <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
-                ]}
+                //         rightContent={[
+                // <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
+                // ]}
                 >{ this.props.location.query.title }</NavBar>
                 <div style={{position:"absolute",width:"100%",top:"50px",bottom:"0",marginBottom:"0px" ,overflow:"auto","-webkit-overflow-scrolling": "touch",
                 "overflow-y": "scroll"}}>
