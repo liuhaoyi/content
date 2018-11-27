@@ -67,6 +67,7 @@ export default {
 
         //查询列表；
         searchResultList: [],
+        favorList: [],
     },
 
     reducers: {
@@ -105,6 +106,11 @@ export default {
         loadSearch(state,{payload}){
             return { ...state,...payload };
         },
+
+        loadFavorList(state,{payload}){
+            return { ...state,...payload };
+        },
+        
     },
 
     effects:{
@@ -249,6 +255,18 @@ export default {
                     type: 'loadSearch',
                     payload: {
                         searchResultList: data.data,
+                    },
+                });
+            }
+        },
+        *fetchFavorList({payload},{ call, put, select }){
+            let { userId } = payload;
+            const { data } = yield call(svc.fetchFavorList, userId);
+            if(!(typeof(data)=="undefined")  && data.state=="1"){
+                yield put({
+                    type: 'loadFavorList',
+                    payload: {
+                        favorList: data.data,
                     },
                 });
             }

@@ -3,48 +3,46 @@ import { NavBar, Icon } from 'antd-mobile';
 import { connect } from 'dva';
 import PureNewsList from './components/PureNewsList';
 
-//搜索列表；
-class SearchList extends React.Component {
+//收藏
+class MyFavorList extends React.Component {
   constructor(props) {
     super(props);
+   
   }
 
   componentDidMount(){
     //标题查询；
-    const title = this.props.location.query.title;
+    // const title = this.props.location.query.title;
+    const userId = sessionStorage.getItem("userId");
+    
     this.props.dispatch(
       {
-        type:"list/fetchSearch",
+        type:"list/fetchFavorList",
         payload:{
-          title,
+          userId,
         }
       }
     );
   }
  
   render(){
-
     return (
         <div style={{marginTop:"45px"}}>   
-        {/* <div> */}
           <NavBar leftContent={[
           <Icon key="1" type="left" onClick={()=>this.props.history.goBack()} />,]}
                   mode="light"
-          >搜索结果</NavBar>
+          >收藏</NavBar>
           <div>
-            <PureNewsList values = {this.props.searchResultList} />
+            <PureNewsList values = {this.props.favorList} />
           </div>
         </div>
     );
   }
 }
 
-const NUM_ROWS = 20;
-let pageIndex = 0;
-
 function mapStateToProps(state) {
-  const { bigCatalog, smallCatalog, smallCatalogList,newsList,catalog2NewsList, searchResultList } = state.list;
-  return { bigCatalog, smallCatalog, smallCatalogList,newsList,catalog2NewsList,searchResultList} ;
+  const {  favorList } = state.list;
+  return { favorList} ;
 }
 
-export default connect(mapStateToProps)(SearchList);
+export default connect(mapStateToProps)(MyFavorList)

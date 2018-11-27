@@ -1,4 +1,4 @@
-import { fetchDetail_ } from '../services/detail';
+import { fetchDetail_ , queryFavorByUserIdAndArticleId , addFavor, removeFavor} from '../services/detail';
 
 export default {
     namespace: 'detail',
@@ -7,11 +7,15 @@ export default {
         
         id: null,
         detail: null,
+        favor: null,
     },
 
     reducers: {
 
         loadDetail(state,{payload}){
+            return { ...state,...payload };
+        },
+        loadFavor(state,{payload}){
             return { ...state,...payload };
         },
     },
@@ -30,7 +34,44 @@ export default {
             });
             
         },
-       
+       *fetchFavorByUserIdAndArticleId({payload},{call,put}){
+            const { data } = yield call(queryFavorByUserIdAndArticleId, payload);
+            yield put({
+                type: 'loadFavor',
+                payload: {
+                    favor: data.data,
+                },
+            });
+        },
+
+        *fetchFavorByUserIdAndArticleId({payload},{call,put}){
+            const { data } = yield call(queryFavorByUserIdAndArticleId, payload);
+            yield put({
+                type: 'loadFavor',
+                payload: {
+                    favor: data.data,
+                },
+            });
+        },
+
+        *addFavor({payload},{call,put}){
+            const { data } = yield call(addFavor, payload);
+            yield put({
+                type: 'loadFavor',
+                payload: {
+                    favor: data.data,
+                },
+            });
+        },
+        *removeFavor({payload},{call,put}){
+            const { data } = yield call(removeFavor, payload);
+            yield put({
+                type: 'loadFavor',
+                payload: {
+                    favor: null,
+                },
+            });
+        },
     },
 
     subscriptions: {

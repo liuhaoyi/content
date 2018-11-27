@@ -18,9 +18,7 @@ class BasicInputExample extends React.Component {
       // this.autoFocusInst.focus();
     }
     componentDidUpdate(){
-      if(this.props.loginState!=null){
-        Toast.info(this.props.loginState, 1);
-      }
+
     }
     handleClick = () => {
     //   this.inputRef.focus();
@@ -58,7 +56,7 @@ class BasicInputExample extends React.Component {
                     defaultValue=""
                     placeholder="输入用户名"
                     data-seed="loginName"
-                >姓名</InputItem>
+                >用户名</InputItem>
             
                 <InputItem
                 {...getFieldProps('phone')}

@@ -58,6 +58,11 @@ class MainPage extends React.Component{
     console.log("index=" + index);
     if(index=="1"){
       //显示收藏
+      router.push({
+        pathname: '/list/myFavorList',
+        query:{
+        }
+    });
     }else if(index=="2"){
       //软件说明
       Toast.info("华云V1.0.1");
@@ -79,11 +84,7 @@ class MainPage extends React.Component{
           thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
         >Category{index}</List.Item>);
       })} */}
-        <List.Item key={1}
-              thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
-              multipleLine
-              onClick={()=>this.onDrawerItemClick("1")}
-            >我的收藏</List.Item>
+
         <List.Item key={1}
               thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
               multipleLine
@@ -114,20 +115,20 @@ class MainPage extends React.Component{
             <Icon key="2" type="search" onClick={()=>this.onShowSearchWindow()} />
         ]}
         >华云合创</NavBar>
-        {/* <Drawer
-          // className="my-drawer"
+        <Drawer
+          className="my-drawer"
           style={{ minHeight: document.documentElement.clientHeight }}
           enableDragHandle
-          contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42}}
+          contentStyle={{ color: '#A6A6A6', textAlign: 'center'}}
           sidebar={sidebar}
           open={this.state.open}
           onOpenChange={this.onOpenChange}
-        >        */}
+        >       
           <div style={{padding:"2px"}}>
             <CarouselPannel  data={this.props.mainPicList} />
             <GridPannel data={this.props.bigCatalogList}/>
           </div>
-        {/* </Drawer> */}
+        </Drawer>
       </div>
     );
   }

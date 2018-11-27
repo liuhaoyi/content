@@ -19,3 +19,7 @@ export function fetchAfterNewsList(catalog,time) {
 export function fetchSearch(title){
     return request(`/api/search?title=${title}`);
 }
+
+export function fetchFavorList(userId){
+    return request(`/api/user/queryFavorList?userId=${userId}`);
+}

@@ -16,8 +16,9 @@ if (isIPhone) {
   };
 }
 @connect(({ detail, loading }) => ({
-  id:detail.id,
+  id: detail.id,
   detail,
+  favor: detail.favor,
   loading: loading.effects['detail/fetchDetail']
 }))
 class ContentDetailPannel extends React.Component{
@@ -31,6 +32,19 @@ class ContentDetailPannel extends React.Component{
     };
     console.log("global.$sharesdk" + global.$sharesdk);
 
+  }
+
+  componentDidMount(){
+    const articleId = this.props.location.query.id;
+    console.log(JSON.stringify(sessionStorage.getItem("userId")));
+    const userId = sessionStorage.getItem("userId");
+    this.props.dispatch({
+      type:"detail/fetchFavorByUserIdAndArticleId",
+      payload:{
+        userId,
+        articleId,
+      }
+    });
   }
   // dataList = [
   //   { url: 'OpHiXAcYzmPQHcdlLFrc', title: '发送给朋友' },
@@ -135,6 +149,33 @@ class ContentDetailPannel extends React.Component{
   onClickHandler=()=>{
     this.props.history.goBack();
   }
+
+  //收藏或者取消收藏；
+  onFavorClick = ()=>{
+    const articleId = this.props.location.query.id;
+    const userId = sessionStorage.getItem("userId");
+    //收藏状态；
+    console.log("onFavorClick=---");
+    if(this.props.favor){
+      //取消；
+      this.props.dispatch({
+        type:"detail/removeFavor",
+        payload:{
+          userId,
+          articleId,
+        }
+      });
+    }else{
+      //收藏
+      this.props.dispatch({
+        type:"detail/addFavor",
+        payload:{
+          userId,
+          articleId,
+        }
+      });
+    }
+  }
   render(){
     let fontsize = localStorage.getItem("fontsize");
     if(!fontsize){
@@ -157,6 +198,8 @@ class ContentDetailPannel extends React.Component{
         backgroundColor = "#ffffff";
       }
     }
+    let img = this.props.favor ?"left":"ellipsis";
+
    
     return (
       <div style={{marginTop:"45px"}}>   
@@ -164,7 +207,7 @@ class ContentDetailPannel extends React.Component{
           <Icon key="1" type="left" onClick={()=>this.onClickHandler()} />,]}
                   mode="light"
                   rightContent={[
-          <Icon key="1" type="ellipsis" onClick={()=>console.log("click ellipsis")} />,
+          <Icon key="1" type={ img } onClick={()=>this.onFavorClick()} />,
         ]}
           >详细内容</NavBar>
         <div style={{ height:document.body.clientHeight, overflow:"scroll" ,marginTop:"45px",paddingBottom:"100px" ,backgroundColor:backgroundColor,color:color}}>

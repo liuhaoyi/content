@@ -20,7 +20,7 @@ export default {
             const { data }  = yield call(login, payload);
             if(data.data){
                 if(data.data.loginName!=null){
-                    sessionStorage.setItem('user',data.data);
+                    sessionStorage.setItem('userId',data.data.id);
                     router.push({
                         pathname: '/main',
                         query:{
@@ -33,7 +33,7 @@ export default {
                             loginState: "登录信息错误！",
                         },
                     });
-                    // Toast.info('This is a toast tips !!!', 1);
+                    Toast.info('用户名、手机号或员工编号错误!!!', 1);
                 }
             } else{
                 yield put({
@@ -42,7 +42,7 @@ export default {
                         loginState: "登录信息错误！",
                     },
                 });
-                // Toast.info('This is a toast tips !!!', 1);
+                Toast.info('用户名、手机号或员工编号错误!!!', 1);
             }
         },
     },
