@@ -1,9 +1,7 @@
 import React from 'react';
 import { Tabs, WhiteSpace } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
-
 import NewsList from './NewsList';
-
 import { connect } from 'dva';
 
 class CatalogList extends React.Component {
@@ -12,11 +10,12 @@ class CatalogList extends React.Component {
     super(props);
 
     this.state = {
-     activeTab: "1",
+     activeTab: null,
     };
   }
-  componentDidMount(){
 
+  componentDidMount(){
+  
   }
 
   renderTabBar=(props)=> {
@@ -35,8 +34,18 @@ class CatalogList extends React.Component {
     )
   }
   refreshListView = (_smallCatalog)=>{
-    console.log("this.state.activeTab=" + this.state.activeTab);
-    if(this.state.activeTab!=_smallCatalog) return ;
+
+    if(!this.state.activeTab){
+      //没有被选中的，默认第一个；
+      this.setState(
+        {
+          activeTab: this.props.data[0].id,
+        }
+      )
+    }
+    console.log("this.state.activeTab=" ,this.state.activeTab,"===",_smallCatalog);
+
+    if(this.state.activeTab==_smallCatalog) {
       //获取顶部第一条记录时间；
       const v   = this.props.catalog2NewsList.get(_smallCatalog);
       let time  = ""
@@ -53,8 +62,19 @@ class CatalogList extends React.Component {
               }
           }
       );
+    }
   }
   render(){
+    // const { data } = this.props;
+    // //初次加载时，设置activeTab默认为第一个tab页。
+    // if(!data) return;
+    // if(data.length>0 && !this.state.activeTab){
+    //   this.setState(
+    //     {
+    //       activeTab: data[0].id,
+    //     }
+    //   )
+    // }
     return (
       <div>
         <StickyContainer>
@@ -66,9 +86,9 @@ class CatalogList extends React.Component {
           >
             {
               this.props.data.map(item=>{
-                  return (
-                          <NewsList data = {item.id} refreshListView={this.refreshListView}/>
-                      )
+                return (
+                        <NewsList data = {item.id} refreshListView={this.refreshListView}/>
+                    )
               })
             }
           </Tabs>
@@ -80,8 +100,8 @@ class CatalogList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { catalog2NewsList } = state.list;
-  return { catalog2NewsList } ;
+  const { catalog2NewsList ,smallCatalogList } = state.list;
+  return { catalog2NewsList ,smallCatalogList} ;
 }
   
 export default connect(mapStateToProps)(CatalogList);

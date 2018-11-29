@@ -4,29 +4,9 @@ import { connect } from 'dva';
 import router from 'umi/router';
 
 class GridPannel extends React.Component{
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //       data,
-    //     };
-    //   }
-    componentDidMount(){
-
-    }
     handlerClick=(item,b)=>{
         console.log(item,b);
         if(item.catalog==='0'){
-            //跳转到tab列表页面；
-            // this.props.dispatch(
-            //     {
-            //       type:"list/fetchSmallCatalog",
-            //       payload:{
-            //         bigCatalog: item.id,
-            //         bigCatalogName: item.title,
-            //       }
-            //     }
-            //   );
-
             router.push({
                 pathname: '/list',
                 query:{
@@ -43,7 +23,6 @@ class GridPannel extends React.Component{
                     bigCatalogName:item.title,
                 }
             });
-
         }else if(item.catalog==='2'){
             //跳转到服务页；
             router.push({
@@ -56,11 +35,6 @@ class GridPannel extends React.Component{
         }
     }
 
-    // handleRenderItem=(dataItem)=>{
-    //     return (
-
-    //     );
-    // }
     render(){
         return (
             // <div style={{ padding: '12.5px'}}>
@@ -79,7 +53,6 @@ class GridPannel extends React.Component{
                     // </div>
                   )}
                 />
-            // </div>
           );
     }
 }

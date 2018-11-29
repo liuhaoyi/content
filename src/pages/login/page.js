@@ -7,15 +7,37 @@ import { connect } from 'dva';
 @connect(({ login, loading }) => ({
     loginState: login.loginState,
     loading: loading.effects['login/login']
-
   }))
 class BasicInputExample extends React.Component {
   state = {
     //   data: ['1', '2', '3'],
       loginState: null,
+      loginName: null,
+      phone: null,
+      userNo: null,
     }
     componentDidMount() {
-      // this.autoFocusInst.focus();
+      const loginName = localStorage.getItem("loginName");
+      const phone = localStorage.getItem("phone");
+      const userNo = localStorage.getItem("userNo");
+
+      console.log(loginName,phone,userNo);
+      if(!loginName) return ;
+      // this.setState(
+      //   {
+      //     loginName,
+      //     phone,
+      //     userNo,
+      //   }
+      // )
+      this.props.dispatch({
+        type: 'login/login',
+        payload: {
+          loginName,
+          phone,
+          userNo,
+        },
+      });
     }
     componentDidUpdate(){
 
@@ -48,24 +70,26 @@ class BasicInputExample extends React.Component {
       const { getFieldProps } = this.props.form;
       return (
         <div>
-            <div style={{padding:"8px"}}>
+            <div style={{padding:"8px",marginTop:'100px'}}>
             <WhiteSpace />
-            <List renderHeader={() => '认证'}>
+            <List>
                 <InputItem
                  {...getFieldProps('loginName')}
-                    defaultValue=""
+                    defaultValue={ this.state.loginName }
                     placeholder="输入用户名"
                     data-seed="loginName"
                 >用户名</InputItem>
             
                 <InputItem
                 {...getFieldProps('phone')}
+                defaultValue={ this.state.loginName }
                 type="phone"
                 placeholder="输入手机号"
                 >手机号</InputItem>
 
                 <InputItem
                 {...getFieldProps('userNo')}
+                defaultValue={  this.state.userNo }
                 type="password"
                 placeholder="输入员工编号"
                 >工号编号</InputItem>

@@ -39,14 +39,25 @@ class PureNewsList extends React.Component {
 
     const row = (rowData, sectionID, rowID,highlightRow) => {
       return (
+        // <div key={rowID} style={{ padding: '0 15px' }} onClick={()=>{this.onRowClick(rowData)}}>
+        //   <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
+        //     <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={rowData.img} alt="" />
+        //     <div style={{ lineHeight: 1 }}>
+        //     <div style={{ marginBottom: '8px', fontSize: '16px'}}>{rowData.title}</div>
+        //       {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div> */}
+        //     </div>
+        //   </div>
+        // </div>
+
         <div key={rowID} style={{ padding: '0 15px' }} onClick={()=>{this.onRowClick(rowData)}}>
-          <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
-            <img style={{ width:'64px',height: '64px', marginRight: '15px' }} src={rowData.img} alt="" />
-            <div style={{ lineHeight: 1 }}>
+        <div style={{ display: '-webkit-box', display: 'flex', padding: '10px 0' }}>
+          <img style={{ width:"64px",height: "64px", marginRight: '15px',flexShrink:"0" }} src={rowData.img} alt="" />
+          {/* <div style={{ lineHeight: 1 }}> */}
+          {/* <div> */}
             <div style={{ marginBottom: '8px', fontSize: '16px'}}>{rowData.title}</div>
-              {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div> */}
-            </div>
+            {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowData.title}</span>¥</div> */}
           </div>
+        {/* </div> */}
         </div>
       );
     };

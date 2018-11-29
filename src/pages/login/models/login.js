@@ -18,9 +18,14 @@ export default {
         
         *login({payload},{call,put}){
             const { data }  = yield call(login, payload);
+            const { loginName, phone, userNo} = payload;
             if(data.data){
                 if(data.data.loginName!=null){
                     sessionStorage.setItem('userId',data.data.id);
+                    localStorage.setItem('loginName',loginName);
+                    localStorage.setItem('phone',phone);
+                    localStorage.setItem('userNo',userNo);
+                    
                     router.push({
                         pathname: '/main',
                         query:{

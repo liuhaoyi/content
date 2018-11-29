@@ -7,6 +7,8 @@ import sharesdk  from "../../layouts/ShareSDK"
 import styles from './index.less'
 import router from 'umi/router';
 import ContentPannel from './content'
+import favorURL from './favor.png';
+import unfavorURL from './unfavor.png';
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let wrapProps;
@@ -132,8 +134,8 @@ class ContentDetailPannel extends React.Component{
       "text" : this.props.location.query.title,
       "imageUrl" : "http://img0.bdstatic.com/img/image/shouye/tangwei.jpg",
       "title" : this.props.location.query.title,
-      "titleUrl" : "http://localhost:8001/detail/content?id=" + this.props.location.query.id,
-      "description" : "测试的描述",
+      "titleUrl" : "http://192.168.2.116:8000/detail/content?id=" + this.props.location.query.id,
+      "description" : this.props.location.query.title,
       "site" : "ShareSDK",
       "siteUrl" : "http://sharesdk.cn",
       "type" : global.$sharesdk.ContentType.Text
@@ -198,33 +200,34 @@ class ContentDetailPannel extends React.Component{
         backgroundColor = "#ffffff";
       }
     }
-    let img = this.props.favor ?"left":"ellipsis";
+    let img = this.props.favor ? favorURL : unfavorURL;
 
-   
+
     return (
       <div style={{marginTop:"45px"}}>   
         <NavBar leftContent={[
           <Icon key="1" type="left" onClick={()=>this.onClickHandler()} />,]}
                   mode="light"
                   rightContent={[
-          <Icon key="1" type={ img } onClick={()=>this.onFavorClick()} />,
+          <img src={ img } onClick={()=>this.onFavorClick()}/>,
         ]}
           >详细内容</NavBar>
+
         <div style={{ height:document.body.clientHeight, overflow:"scroll" ,marginTop:"45px",paddingBottom:"100px" ,backgroundColor:backgroundColor,color:color}}>
           <ContentPannel id={ this.props.location.query.id } fontSize = { fontsize }/>
         </div>
         <div style ={{display:"flex",backgroundColor:"#6e0a07",color:"#fff",height:"42px",width: "100%",position: "fixed",bottom:"0",valign:"center","justify-content":"space-around","align-items":"center"}}> 
-          <div onClick={()=>{this.handlerRefresh()}}>刷新</div>
-          <div  onClick={()=>{this.showReadModeActionSheet()}}>模式</div>
-          <div  onClick={()=>{this.showFontSizeActionSheet()}}>字体</div>
-          <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>分享</div>
-          {/* <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>评论</div> */}
-        </div>
+        <div onClick={()=>{this.handlerRefresh()}}>刷新</div>
+        <div  onClick={()=>{this.showReadModeActionSheet()}}>模式</div>
+        <div  onClick={()=>{this.showFontSizeActionSheet()}}>字体</div>
+        <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>分享</div>
+         {/* <div  onClick={()=>{this.showShareActionSheetMulpitleLine()}}>评论</div> */}
+         </div>
         <ActivityIndicator
                 toast
                 text="Loading..."
                 animating={ this.props.loading ?true:false}
-              />
+              /> 
       </div>
 
     );

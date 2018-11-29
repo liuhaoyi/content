@@ -4,8 +4,9 @@ import { NavBar, Icon, WhiteSpace, Modal, Drawer, List, Toast} from 'antd-mobile
 import GridPannel from './components/GridPannel'
 import CarouselPannel from './components/CarouselPannel'
 import router from 'umi/router';
-
 import { connect } from 'dva'
+import settingURL from './setting.png';
+
 const prompt = Modal.prompt;
 
 class MainPage extends React.Component{
@@ -65,7 +66,7 @@ class MainPage extends React.Component{
     });
     }else if(index=="2"){
       //软件说明
-      Toast.info("华云V1.0.1");
+      Toast.info("哈尔滨石化移动客户端V1.0.1");
     }else if(index =="3"){
       //关闭菜单
     }
@@ -108,13 +109,13 @@ class MainPage extends React.Component{
       <div style={{marginTop:"45px"}}>   
 
         <NavBar leftContent={[
-            <Icon key="1" type="ellipsis" onClick={()=>this.onOpenChange()}/>]}
+            <img src={ settingURL } onClick={()=>this.onOpenChange()}/>]}
                   mode="light"
 
                   rightContent={[
             <Icon key="2" type="search" onClick={()=>this.onShowSearchWindow()} />
         ]}
-        >华云合创</NavBar>
+        >哈尔滨石化</NavBar>
         <Drawer
           className="my-drawer"
           style={{ minHeight: document.documentElement.clientHeight }}

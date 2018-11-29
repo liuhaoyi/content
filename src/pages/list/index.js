@@ -22,6 +22,7 @@ class MyCatalog extends React.Component {
   }
 
   render(){
+
     const bigCatalogName = this.props.location.query.bigCatalogName;
     return (
         <div style={{marginTop:"45px"}}>   
@@ -34,16 +35,12 @@ class MyCatalog extends React.Component {
         // ]}
           >{bigCatalogName}</NavBar>
           <div>
-          <CatalogList data={this.props.smallCatalogList}/>
+          <CatalogList data={this.props.smallCatalogList} />
           </div>
         </div>
     );
   }
 }
-
-const NUM_ROWS = 20;
-let pageIndex = 0;
-
 function mapStateToProps(state) {
   const { bigCatalog, smallCatalog, smallCatalogList,newsList} = state.list;
   return { bigCatalog, smallCatalog, smallCatalogList,newsList} ;

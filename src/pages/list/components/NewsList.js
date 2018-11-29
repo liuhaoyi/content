@@ -6,24 +6,39 @@ import router from 'umi/router';
 class NewsList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       time: null,
     };
   }
   
   componentDidMount() {
-    this.props.dispatch(
-      {
-        type:"list/fetchBeforeNewsList",
-        payload:{
-          "smallCatalog":this.props.data,
-          "time": "",
-         }
+    setInterval(()=>{
+      //需要定时执行的方法
+      const v = this.props.catalog2NewsList.get(this.props.data);
+      if(!(typeof(v)=="undefined") && v.length>0){
+      return;
       }
-    );
+      this.props.dispatch(
+        {
+          type:"list/fetchBeforeNewsList",
+          payload:{
+            "smallCatalog":this.props.data,
+            "time": "",
+          }
+        }
+      );
+    }, 500);
+    
   }
+  componentWillReceiveProps(newProps) {
+    const { data } = this.props;
 
+    console.log(newProps.data);
+    if(data==newProps.data){
+      console.log("newprops=",newProps.data);
+    }
+    
+  }
   onRowClick=(obj) =>{
       router.push({
         pathname: '/detail',
