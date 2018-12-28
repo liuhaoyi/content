@@ -44,6 +44,7 @@ class NewsList extends React.Component {
         pathname: '/detail',
         query:{
             id: obj.id,
+            title: obj.title,
         }
     });
   }

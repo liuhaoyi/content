@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import { NavBar, Icon, ActionSheet ,ActivityIndicator} from 'antd-mobile';
 import { connect } from 'dva'
-import sharesdk  from "../../layouts/ShareSDK"
 import styles from './index.less'
 import router from 'umi/router';
 import ContentPannel from './content'
@@ -33,6 +32,8 @@ class ContentDetailPannel extends React.Component{
       fontSize: "medium",
     };
     console.log("global.$sharesdk" + global.$sharesdk);
+
+    console.log("global.UMShareAgent" + global.UMShareAgent);
 
   }
 
@@ -129,21 +130,18 @@ class ContentDetailPannel extends React.Component{
       }
     });
   }
+  
   showShareActionSheetMulpitleLine = () => {
-    var params = {
-      "text" : this.props.location.query.title,
-      "imageUrl" : "http://img0.bdstatic.com/img/image/shouye/tangwei.jpg",
-      "title" : this.props.location.query.title,
-      "titleUrl" : "http://192.168.2.116:8000/detail/content?id=" + this.props.location.query.id,
-      "description" : this.props.location.query.title,
-      "site" : "ShareSDK",
-      "siteUrl" : "http://sharesdk.cn",
-      "type" : global.$sharesdk.ContentType.Text
-    };
-    global.$sharesdk.showShareMenu(null, params, 100, 100, function (reqId, platform, state, shareInfo, error) {
-      alert("state = " + state + "\n shareInfo = " + shareInfo + "\n error = " + error);
-    });
+    const title = this.props.location.query.title;
+    var params={
+      args:null,
+      title: title,
+      imgUrl: null,
+      titleUrl: "http:///192.168.170.3:8000/detail/content?id=" + this.props.location.query.id,
+    }
+    global.share.showShareAction(JSON.stringify(params));
   }
+  
   //评论
   showDiscuss=()=>{
 
